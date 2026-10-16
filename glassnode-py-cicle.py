@@ -1,0 +1,24 @@
+import json
+import requests
+import pandas as pd
+import plotly.express as px
+
+#По py-cicle нужно преобразовать данные из таблицы!!!
+
+# insert your API key here
+API_KEY = 'YOUR_API_KEY'
+
+# make API request
+res = requests.get('https://api.glassnode.com/v1/metrics/indicators/pi_cycle_top',
+    params={'a': 'BTC', 'api_key': API_KEY})
+
+# convert to pandas dataframe
+df = pd.read_json(res.text, convert_dates=['t'])
+
+gg=px.line(df, x = 't', y = 'o')
+
+# gg.update_yaxes(type="log")
+
+print(df)
+
+gg.show()
